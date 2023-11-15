@@ -1,0 +1,43 @@
+[build]
+publish = "public"
+#command = "sed -i \"s|SITE_NAME|${SITE_NAME}|g\" netlify.toml && python feedprep.py && sitemapgen --url https://steadydrummer.com --out public/sitemap.xml"
+command = "sed -i \"s|SITE_NAME|${SITE_NAME}|g\" netlify.toml"
+functions = "functions"
+
+
+#[[plugins]]
+#package = "@netlify/plugin-sitemap"
+
+# [plugins.inputs]
+#  exclude = [
+    # By file Path
+#    './public/countries/',
+#    './public/404.html',
+#    './public/401/',
+#  ]
+
+
+[[redirects]]
+  from = "/api/*" # not using this at the moment, just a default reference
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = true
+
+# map everything else from the subdomain to your domain
+[[redirects]]
+  from = "/*"
+  to = "http://mcastelnoble-004-site1.ftempurl.com/:splat"
+  status = 200
+  force = true

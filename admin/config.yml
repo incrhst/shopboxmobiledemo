@@ -1,0 +1,2479 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: master
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: project
+    label: Projects
+    folder: cms/project
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Project Details
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_project-summary
+        label: Project Summary
+        widget: text
+        required: false
+      - hint: ''
+        name: f_overview
+        label: Overview
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_lottie-file
+        label: Lottie file
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: File
+            widget: file
+            required: false
+            allow_multiple: false
+      - hint: Used on project list grid
+        name: f_main-project-image
+        label: Main Project Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_client
+        label: Client
+        widget: string
+        required: false
+      - hint: ''
+        name: f_client-logo
+        label: Client Logo
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_services-rendered
+        label: Services Rendered
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_featured-project
+        label: Featured Project?
+        widget: boolean
+        required: false
+        default: false
+      - hint: ''
+        name: f_color
+        label: Color
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: project
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[project].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: articles
+    label: Articles
+    folder: cms/articles
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Post Body
+        name: body
+        widget: markdown
+        required: false
+      - hint: A summary of the blog post that appears on blog post grid
+        name: f_post-summary
+        label: Post Summary
+        widget: text
+        required: false
+      - hint: ''
+        name: f_main-image
+        label: Main Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: Smaller version of main image that is used on blog post grid
+        name: f_thumbnail-image
+        label: Thumbnail image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_featured
+        label: Featured?
+        widget: boolean
+        required: false
+        default: false
+      - hint: ''
+        name: f_color
+        label: Color
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - hint: Use this to share an embed
+        name: f_embed
+        label: Embed
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: articles
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[articles].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: About, key: 3c2336d'
+            label: Text
+            name: 3c2336d
+            widget: string
+          - hint: 'Original text: Services, key: 560f747e'
+            label: Text
+            name: 560f747e
+            widget: string
+          - hint: 'Original text: Work, key: 293b31'
+            label: Text
+            name: 293b31
+            widget: string
+          - hint: 'Original text: Resources, key: 13ede05'
+            label: Text
+            name: 13ede05
+            widget: string
+          - hint: 'Original text: Let''s Talk, key: -13ef5b1b'
+            label: Text
+            name: '-13ef5b1b'
+            widget: string
+          - hint: >-
+              Original text: Forget rock stars. Your Webflow project needs a
+              Steady Drummer., key: 2e4fb83f
+            label: Text
+            name: 2e4fb83f
+            widget: string
+          - hint: 'Original text: Steady, key: -6bcbbbce'
+            label: Text
+            name: '-6bcbbbce'
+            widget: string
+          - hint: 'Original text:  Webflow , key: 61f4921e'
+            label: Text
+            name: 61f4921e
+            widget: string
+          - hint: 'Original text: Development, key: 5603451b'
+            label: Text
+            name: 5603451b
+            widget: string
+          - hint: >-
+              Original text: How busy marketing and design teams keep it
+              together, key: -6a54927a
+            label: Text
+            name: '-6a54927a'
+            widget: string
+          - hint: 'Original text: Learn More, key: -52bd880f'
+            label: Text
+            name: '-52bd880f'
+            widget: string
+          - hint: 'Original text: On-Demand Webflow Development., key: -633ff0c8'
+            label: Text
+            name: '-633ff0c8'
+            widget: string
+          - hint: 'Original text: Flat rate. No Suprises., key: -72654db4'
+            label: Text
+            name: '-72654db4'
+            widget: string
+          - hint: >-
+              Original text: So marketing and design can keep doing what they're
+              doing., key: 21a366a8
+            label: Text
+            name: 21a366a8
+            widget: string
+          - hint: 'Original text: Webflow Developer As-needed, key: 72eb09dc'
+            label: Text
+            name: 72eb09dc
+            widget: string
+          - hint: "Original text: Add reliable Webflow talent to your team without the HR\_hassle associated with traditional hiring. need for long-term contracts., key: -1cc41aa6"
+            label: Text
+            name: '-1cc41aa6'
+            widget: text
+          - hint: 'Original text: Outcome-driven Implementations, key: 36fc67e0'
+            label: Text
+            name: 36fc67e0
+            widget: string
+          - hint: "Original text: Your intended outcome is supremely important. We recommend the best approach based on our best understanding of your goals and urgency. \_, key: 2f310fa9"
+            label: Text
+            name: 2f310fa9
+            widget: text
+          - hint: 'Original text: Automate all the things, key: -54a21401'
+            label: Text
+            name: '-54a21401'
+            widget: string
+          - hint: >-
+              Original text: Integrations can make your Webflow-life easier. We
+              work with the Webflow API to integrate with CRMs, Forms, Analytics
+              and other platforms., key: 63870aa3
+            label: Text
+            name: 63870aa3
+            widget: text
+          - hint: 'Original text: North American Office Hours*, key: -26554166'
+            label: Text
+            name: '-26554166'
+            widget: string
+          - hint: 'Original text: *We operate on Florida-time., key: 76b4db14'
+            label: Text
+            name: 76b4db14
+            widget: string
+          - hint: >-
+              Original text:  A great fit for US-based marketing teams., key:
+              -173d10ea
+            label: Text
+            name: '-173d10ea'
+            widget: string
+          - hint: 'Original text: Subscription or One-off, key: -b373112'
+            label: Text
+            name: '-b373112'
+            widget: string
+          - hint: 'Original text: Choose between two main services, key: -320116b0'
+            label: Text
+            name: '-320116b0'
+            widget: string
+          - hint: 'Original text: Subscription, key: 1e21ad3d'
+            label: Text
+            name: 1e21ad3d
+            widget: string
+          - hint: >-
+              Original text: Webflow Developer as-needed. Add a Webflow
+              Developer to your project on a monthly basis. , key: f5f63ec
+            label: Text
+            name: f5f63ec
+            widget: string
+          - hint: "Original text: I\_need more info, key: -3913033a"
+            label: Text
+            name: '-3913033a'
+            widget: string
+          - hint: 'Original text: One-off, key: 1466c568'
+            label: Text
+            name: 1466c568
+            widget: string
+          - hint: >-
+              Original text: Great for new websites or rescuing an old one.
+              Start right or reset an existing project to make it maintainable
+              and scalable. , key: 5c56213b
+            label: Text
+            name: 5c56213b
+            widget: text
+          - hint: 'Original text: I need more info, key: -26c823ba'
+            label: Text
+            name: '-26c823ba'
+            widget: string
+          - hint: 'Original text: Subscription Pricing, key: 4d09f3c3'
+            label: Text
+            name: 4d09f3c3
+            widget: string
+          - hint: 'Original text: Fixed, Monthly Rates, key: 7cd9a2b8'
+            label: Text
+            name: 7cd9a2b8
+            widget: string
+          - hint: >-
+              Original text: Subscription Webflow support and maintenance, ideal
+              for keeping existing websites up-to-date and humming., key:
+              -7d990690
+            label: Text
+            name: '-7d990690'
+            widget: text
+          - hint: 'Original text: Basic Plan, key: 304b641b'
+            label: Text
+            name: 304b641b
+            widget: string
+          - hint: 'Original text: For Simple Projects, key: -3653f64f'
+            label: Text
+            name: '-3653f64f'
+            widget: string
+          - hint: 'Original text: $1099, key: 2124fa3'
+            label: Text
+            name: 2124fa3
+            widget: string
+          - hint: 'Original text: /mth, key: 170512'
+            label: Text
+            name: '170512'
+            widget: string
+          - hint: 'Original text: Billed monthly., key: 4d36a19b'
+            label: Text
+            name: 4d36a19b
+            widget: string
+          - hint: 'Original text: Get Started, key: -364d0a89'
+            label: Text
+            name: '-364d0a89'
+            widget: string
+          - hint: 'Original text: Unlimited Fixes , key: -2a1346a4'
+            label: Text
+            name: '-2a1346a4'
+            widget: string
+          - hint: 'Original text: up to 2 Webflow sites, key: -53577aa0'
+            label: Text
+            name: '-53577aa0'
+            widget: string
+          - hint: 'Original text: Unlimited Basic Layout Changes, key: 29ff841e'
+            label: Text
+            name: 29ff841e
+            widget: string
+          - hint: 'Original text: average turnaround time , key: 4e937f80'
+            label: Text
+            name: 4e937f80
+            widget: string
+          - hint: 'Original text: 1 business day*, key: -6f387d41'
+            label: Text
+            name: '-6f387d41'
+            widget: string
+          - hint: 'Original text: 1 active task at a time, key: d04e089'
+            label: Text
+            name: d04e089
+            widget: string
+          - hint: 'Original text: Standard Plan, key: -4aae5154'
+            label: Text
+            name: '-4aae5154'
+            widget: string
+          - hint: 'Original text: For Advanced Layout and CMS, key: -67582a4f'
+            label: Text
+            name: '-67582a4f'
+            widget: string
+          - hint: 'Original text: $2,419, key: 4043d73e'
+            label: Text
+            name: 4043d73e
+            widget: string
+          - hint: 'Original text: Everything in the Basic Plan, key: -5cf85c88'
+            label: Text
+            name: '-5cf85c88'
+            widget: string
+          - hint: 'Original text: Unlimited Basic Integration Tasks, key: -75cf77ef'
+            label: Text
+            name: '-75cf77ef'
+            widget: string
+          - hint: "Original text: Unlimited CMS\_Tasks, key: 4b3a1098"
+            label: Text
+            name: 4b3a1098
+            widget: string
+          - hint: 'Original text: 2 active tasks at a time, key: -203d57c5'
+            label: Text
+            name: '-203d57c5'
+            widget: string
+          - hint: 'Original text: Pro plan, key: -3bba2f24'
+            label: Text
+            name: '-3bba2f24'
+            widget: string
+          - hint: >-
+              Original text: For Complex Projects and Integration, key:
+              -5b12b874
+            label: Text
+            name: '-5b12b874'
+            widget: string
+          - hint: 'Original text: $6,095, key: 407c2732'
+            label: Text
+            name: 407c2732
+            widget: string
+          - hint: 'Original text: Everything in the Standard Plan, key: -6a1ca9d1'
+            label: Text
+            name: '-6a1ca9d1'
+            widget: string
+          - hint: 'Original text: Unlimited Advanced Integrations, key: 72716e3e'
+            label: Text
+            name: 72716e3e
+            widget: string
+          - hint: >-
+              Original text: Priority support (a response within 90 minutes
+              during business hours), key: -1168ba0b
+            label: Text
+            name: '-1168ba0b'
+            widget: string
+          - hint: 'Original text: *varies with complexity of task, key: -45971f80'
+            label: Text
+            name: '-45971f80'
+            widget: string
+          - hint: 'Original text: One-off Projects, key: -6ee1d3ae'
+            label: Text
+            name: '-6ee1d3ae'
+            widget: string
+          - hint: 'Original text: Start on a solid footing, key: 2c923f1d'
+            label: Text
+            name: 2c923f1d
+            widget: string
+          - hint: "Original text: One-offs are great if you're working on something brand new or you want to bring sanity to an older site. Our process puts priority on an easy-to-maintain website, generally based on the widely-used Client First style guide. \_, key: -4ec87671"
+            label: Text
+            name: '-4ec87671'
+            widget: text
+          - hint: 'Original text: Starting at, key: 195e63f3'
+            label: Text
+            name: 195e63f3
+            widget: string
+          - hint: 'Original text: $2,979, key: 4043eabd'
+            label: Text
+            name: 4043eabd
+            widget: string
+          - hint: >-
+              Original text: SteadyDrummer is © 2023 Incrementic Ltd. All right
+              reserved., key: 6fe3809e
+            label: Text
+            name: 6fe3809e
+            widget: string
+          - hint: 'Original text: Privacy Policy, key: -3fbde6f6'
+            label: Text
+            name: '-3fbde6f6'
+            widget: string
+          - hint: 'Original text: Terms of Service, key: -7fe2d65b'
+            label: Text
+            name: '-7fe2d65b'
+            widget: string
+          - hint: 'Original text: Protected Page, key: -11d4bbff'
+            label: Text
+            name: '-11d4bbff'
+            widget: string
+          - hint: >-
+              Original text: Incorrect password. Please try again., key:
+              -f5c4b5f
+            label: Text
+            name: '-f5c4b5f'
+            widget: string
+          - hint: 'Original text: Page Not Found, key: -40b0787c'
+            label: Text
+            name: '-40b0787c'
+            widget: string
+          - hint: >-
+              Original text: The page you are looking for doesn't exist or has
+              been moved, key: 556d64d8
+            label: Text
+            name: 556d64d8
+            widget: string
+          - hint: 'Original text: Go Home, key: 6b29b517'
+            label: Text
+            name: 6b29b517
+            widget: string
+          - hint: 'Original text: Style Guide, key: -7aba473'
+            label: Text
+            name: '-7aba473'
+            widget: string
+          - hint: 'Original text: Client-First Version 1.0, key: 507fb359'
+            label: Text
+            name: 507fb359
+            widget: string
+          - hint: 'Original text: HTML Heading Tags, key: 391be0c'
+            label: Text
+            name: 391be0c
+            widget: string
+          - hint: 'Original text: H1, key: 8e9'
+            label: Text
+            name: '8e9'
+            widget: string
+          - hint: >-
+              Original text: Sample text is being used as a placeholder., key:
+              1108a7df
+            label: Text
+            name: 1108a7df
+            widget: string
+          - hint: 'Original text: H2, key: 8ea'
+            label: Text
+            name: 8ea
+            widget: string
+          - hint: >-
+              Original text: Sample text is being used as a placeholder as real
+              text., key: -6c11f3e4
+            label: Text
+            name: '-6c11f3e4'
+            widget: string
+          - hint: 'Original text: H3, key: 8eb'
+            label: Text
+            name: 8eb
+            widget: string
+          - hint: >-
+              Original text: Sample text helps you understand how real text may
+              look on your website., key: 785897ae
+            label: Text
+            name: 785897ae
+            widget: string
+          - hint: 'Original text: H4, key: 8ec'
+            label: Text
+            name: 8ec
+            widget: string
+          - hint: >-
+              Original text: Sample text is being used as a placeholder for real
+              text that is normally present. Sample text helps you understand
+              how real text may look., key: -5fcdceac
+            label: Text
+            name: '-5fcdceac'
+            widget: text
+          - hint: 'Original text: H5, key: 8ed'
+            label: Text
+            name: 8ed
+            widget: string
+          - hint: >-
+              Original text: Sample text is being used as a placeholder for real
+              text that is normally present. Sample text helps you understand
+              how real text may look on your website. Sample text is being used
+              as a placeholder for real text., key: ff56e0c
+            label: Text
+            name: ff56e0c
+            widget: text
+          - hint: 'Original text: H6, key: 8ee'
+            label: Text
+            name: 8ee
+            widget: string
+          - hint: >-
+              Original text: Sample text is being used as a placeholder for real
+              text that is normally present. Sample text helps you understand
+              how real text may look on your website. Sample text is being used
+              as a placeholder for real text that is normally present., key:
+              667d63e4
+            label: Text
+            name: 667d63e4
+            widget: text
+          - hint: 'Original text: Heading Classes, key: 6647fc8'
+            label: Text
+            name: 6647fc8
+            widget: string
+          - hint: 'Original text: heading-xlarge, key: -3e113412'
+            label: Text
+            name: '-3e113412'
+            widget: string
+          - hint: 'Original text: heading-large, key: -2bf8bc50'
+            label: Text
+            name: '-2bf8bc50'
+            widget: string
+          - hint: 'Original text: heading-medium, key: -5137ea60'
+            label: Text
+            name: '-5137ea60'
+            widget: string
+          - hint: 'Original text: heading-small, key: -2b90e284'
+            label: Text
+            name: '-2b90e284'
+            widget: string
+          - hint: 'Original text: heading-xsmall, key: -3da95a46'
+            label: Text
+            name: '-3da95a46'
+            widget: string
+          - hint: 'Original text: Other HTML Tags, key: e88725e'
+            label: Text
+            name: e88725e
+            widget: string
+          - hint: 'Original text: All Paragraphs, key: 5cba4ce4'
+            label: Text
+            name: 5cba4ce4
+            widget: string
+          - hint: 'Original text: All Links, key: 47b903a'
+            label: Text
+            name: 47b903a
+            widget: string
+          - hint: 'Original text: All Quotes, key: -6bd79eea'
+            label: Text
+            name: '-6bd79eea'
+            widget: string
+          - hint: 'Original text: Text Classes, key: -77cc77cd'
+            label: Text
+            name: '-77cc77cd'
+            widget: string
+          - hint: 'Original text: text-size-large , key: -4527a10f'
+            label: Text
+            name: '-4527a10f'
+            widget: string
+          - hint: 'Original text: text-size-medium, key: -4340bddf'
+            label: Text
+            name: '-4340bddf'
+            widget: string
+          - hint: 'Original text: text-size-regular, key: -1c283d90'
+            label: Text
+            name: '-1c283d90'
+            widget: string
+          - hint: 'Original text: text-size-small, key: -75702325'
+            label: Text
+            name: '-75702325'
+            widget: string
+          - hint: 'Original text: text-size-tiny, key: -6f243f54'
+            label: Text
+            name: '-6f243f54'
+            widget: string
+          - hint: 'Original text: text-style-strikethrough, key: -613aa0e9'
+            label: Text
+            name: '-613aa0e9'
+            widget: string
+          - hint: 'Original text: text-style-italic, key: -1e09a194'
+            label: Text
+            name: '-1e09a194'
+            widget: string
+          - hint: 'Original text: text-style-muted, key: -5b95aa51'
+            label: Text
+            name: '-5b95aa51'
+            widget: string
+          - hint: 'Original text: text-style-allcaps, key: -576c60ba'
+            label: Text
+            name: '-576c60ba'
+            widget: string
+          - hint: 'Original text: text-style-nowrap, key: -15bdc639'
+            label: Text
+            name: '-15bdc639'
+            widget: string
+          - hint: 'Original text: text-style-link, key: 4f9fb336'
+            label: Text
+            name: 4f9fb336
+            widget: string
+          - hint: 'Original text: text-style-quote, key: -5b5d5d40'
+            label: Text
+            name: '-5b5d5d40'
+            widget: string
+          - hint: 'Original text: text-style-2lines, key: -7c513db7'
+            label: Text
+            name: '-7c513db7'
+            widget: string
+          - hint: 'Original text: text-style-3lines, key: -7a9c6518'
+            label: Text
+            name: '-7a9c6518'
+            widget: string
+          - hint: >-
+              Original text: Sample text is being used as a placeholder for real
+              text that is normally present. Sample text helps you understand
+              how real text may look on your website. Sample text is being used
+              as a placeholder for real text.dolor sit amet,, key: -18a479d9
+            label: Text
+            name: '-18a479d9'
+            widget: text
+          - hint: 'Original text: Text Weights, key: -6156a2f8'
+            label: Text
+            name: '-6156a2f8'
+            widget: string
+          - hint: 'Original text: text-weight-xbold, key: -6542b3f8'
+            label: Text
+            name: '-6542b3f8'
+            widget: string
+          - hint: 'Original text: text-weight-bold, key: 704ee01a'
+            label: Text
+            name: 704ee01a
+            widget: string
+          - hint: 'Original text: text-weight-semibold, key: -399389f8'
+            label: Text
+            name: '-399389f8'
+            widget: string
+          - hint: 'Original text: text-weight-medium, key: -55b3dc36'
+            label: Text
+            name: '-55b3dc36'
+            widget: string
+          - hint: 'Original text: text-weight-normal, key: -536baec4'
+            label: Text
+            name: '-536baec4'
+            widget: string
+          - hint: 'Original text: text-weight-light, key: -65e8bddf'
+            label: Text
+            name: '-65e8bddf'
+            widget: string
+          - hint: 'Original text: Text Alignments, key: -4799cc3d'
+            label: Text
+            name: '-4799cc3d'
+            widget: string
+          - hint: 'Original text: text-align-left, key: 91bde6f'
+            label: Text
+            name: 91bde6f
+            widget: string
+          - hint: 'Original text: text-align-center, key: 224610bd'
+            label: Text
+            name: 224610bd
+            widget: string
+          - hint: 'Original text: text-align-right, key: 1ab650b4'
+            label: Text
+            name: 1ab650b4
+            widget: string
+          - hint: 'Original text: Text Colors, key: -1c74483d'
+            label: Text
+            name: '-1c74483d'
+            widget: string
+          - hint: 'Original text: text-color-grey, key: -6bdd4457'
+            label: Text
+            name: '-6bdd4457'
+            widget: string
+          - hint: 'Original text: text-color-black, key: -1014878b'
+            label: Text
+            name: '-1014878b'
+            widget: string
+          - hint: 'Original text: Rich Text, key: 41b289f1'
+            label: Text
+            name: 41b289f1
+            widget: string
+          - hint: 'Original text: Heading 1, key: 6af22973'
+            label: Text
+            name: 6af22973
+            widget: string
+          - hint: 'Original text: Heading 2, key: 6af22974'
+            label: Text
+            name: 6af22974
+            widget: string
+          - hint: 'Original text: Heading 3, key: 6af22975'
+            label: Text
+            name: 6af22975
+            widget: string
+          - hint: 'Original text: Heading 4, key: 6af22976'
+            label: Text
+            name: 6af22976
+            widget: string
+          - hint: 'Original text: Heading 5, key: 6af22977'
+            label: Text
+            name: 6af22977
+            widget: string
+          - hint: 'Original text: Heading 6, key: 6af22978'
+            label: Text
+            name: 6af22978
+            widget: string
+          - hint: >-
+              Original text: The rich text element allows you to create and
+              format headings,, key: 730b2c2f
+            label: Text
+            name: 730b2c2f
+            widget: string
+          - hint: 'Original text: ‍, key: 200d'
+            label: Text
+            name: 200d
+            widget: string
+          - hint: 'Original text: This is a link, key: 5443dd2d'
+            label: Text
+            name: 5443dd2d
+            widget: string
+          - hint: 'Original text: This is a placeholder image., key: -395a7a8d'
+            label: Text
+            name: '-395a7a8d'
+            widget: string
+          - hint: 'Original text: Color Palette, key: -4b21e982'
+            label: Text
+            name: '-4b21e982'
+            widget: string
+          - hint: 'Original text: Primary, key: 5075a5e2'
+            label: Text
+            name: 5075a5e2
+            widget: string
+          - hint: 'Original text: Secondary, key: 46b69154'
+            label: Text
+            name: 46b69154
+            widget: string
+          - hint: 'Original text: Text Color, key: -7487e150'
+            label: Text
+            name: '-7487e150'
+            widget: string
+          - hint: 'Original text: Background1, key: -3a24075d'
+            label: Text
+            name: '-3a24075d'
+            widget: string
+          - hint: 'Original text: Background2, key: -3a24075c'
+            label: Text
+            name: '-3a24075c'
+            widget: string
+          - hint: 'Original text: Others, key: -729db07d'
+            label: Text
+            name: '-729db07d'
+            widget: string
+          - hint: 'Original text: Buttons, key: 719b5761'
+            label: Text
+            name: 719b5761
+            widget: string
+          - hint: 'Original text: button, key: -521dd8ce'
+            label: Text
+            name: '-521dd8ce'
+            widget: string
+          - hint: 'Original text: button-secondary, key: -188a5b67'
+            label: Text
+            name: '-188a5b67'
+            widget: string
+          - hint: 'Original text: button-text, key: -6b9f1118'
+            label: Text
+            name: '-6b9f1118'
+            widget: string
+          - hint: 'Original text: Buttons Alternative, key: 15d9c94e'
+            label: Text
+            name: 15d9c94e
+            widget: string
+          - hint: 'Original text: button button-alternative, key: -2d9b4ac0'
+            label: Text
+            name: '-2d9b4ac0'
+            widget: string
+          - hint: 'Original text: button-text button-alternative, key: 29d8f5ca'
+            label: Text
+            name: 29d8f5ca
+            widget: string
+          - hint: 'Original text: Backgrounds, key: -3a24071b'
+            label: Text
+            name: '-3a24071b'
+            widget: string
+          - hint: 'Original text: Icons Sizes, key: -2729fc34'
+            label: Text
+            name: '-2729fc34'
+            widget: string
+          - hint: 'Original text: Icons 1x1 Sizes, key: -7484862a'
+            label: Text
+            name: '-7484862a'
+            widget: string
+          - hint: 'Original text: Images Aspect ratios, key: 7c9d5ae8'
+            label: Text
+            name: 7c9d5ae8
+            widget: string
+          - hint: 'Original text: Social Media Icons, key: -143b2875'
+            label: Text
+            name: '-143b2875'
+            widget: string
+          - hint: 'Original text: Webflow Elements, key: -7c9906eb'
+            label: Text
+            name: '-7c9906eb'
+            widget: string
+          - hint: 'Original text: List, key: 2424be'
+            label: Text
+            name: 2424be
+            widget: string
+          - hint: >-
+              Original text: Sample text is being used as a placeholder for real
+              text that is normally present., key: -6aeb2b17
+            label: Text
+            name: '-6aeb2b17'
+            widget: string
+          - hint: 'Original text: Form, key: 2180e4'
+            label: Text
+            name: '2180e4'
+            widget: string
+          - hint: 'Original text: Text Input, key: -7433b8e9'
+            label: Text
+            name: '-7433b8e9'
+            widget: string
+          - hint: 'Original text: Text Area, key: 360b43a0'
+            label: Text
+            name: 360b43a0
+            widget: string
+          - hint: 'Original text: Select field, key: 2b9f90f6'
+            label: Text
+            name: 2b9f90f6
+            widget: string
+          - hint: 'Original text: Select one..., key: 57f3b1cc'
+            label: Text
+            name: 57f3b1cc
+            widget: string
+          - hint: 'Original text: First Choice, key: -491b32af'
+            label: Text
+            name: '-491b32af'
+            widget: string
+          - hint: 'Original text: Second Choice, key: 3c4172cd'
+            label: Text
+            name: 3c4172cd
+            widget: string
+          - hint: 'Original text: Third Choice, key: -1b351146'
+            label: Text
+            name: '-1b351146'
+            widget: string
+          - hint: 'Original text: Checkbox field, key: -70558183'
+            label: Text
+            name: '-70558183'
+            widget: string
+          - hint: 'Original text: Checkbox, key: 5f757fe3'
+            label: Text
+            name: 5f757fe3
+            widget: string
+          - hint: 'Original text: Radio button, key: 739c6f17'
+            label: Text
+            name: 739c6f17
+            widget: string
+          - hint: 'Original text: Radio, key: 4b123db'
+            label: Text
+            name: 4b123db
+            widget: string
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: 'Original text: Book a Call, key: 47c85fd4'
+            label: Text
+            name: 47c85fd4
+            widget: string
+          - hint: 'Original text: or, key: de3'
+            label: Text
+            name: de3
+            widget: string
+          - hint: 'Original text: send us a message, key: 35402dde'
+            label: Text
+            name: 35402dde
+            widget: string
+          - hint: 'Original text: Terms and Conditions, key: -7ac7b766'
+            label: Text
+            name: '-7ac7b766'
+            widget: string
+          - hint: 'Original text: Welcome to Steady Drummer!, key: 6c6e7874'
+            label: Text
+            name: 6c6e7874
+            widget: string
+          - hint: >-
+              Original text: These terms and conditions outline the rules and
+              regulations for the use of Incrementic Ltd.'s Website, located at
+              www.steadydrummer.com., key: -965d520
+            label: Text
+            name: '-965d520'
+            widget: text
+          - hint: >-
+              Original text: By accessing this website we assume you accept
+              these terms and conditions. Do not continue to use Steady Drummer
+              if you do not agree to take all of the terms and conditions stated
+              on this page., key: 4c767a79
+            label: Text
+            name: 4c767a79
+            widget: text
+          - hint: >-
+              Original text: The following terminology applies to these Terms
+              and Conditions, Privacy Statement and Disclaimer Notice and all
+              Agreements: "Client", "You" and "Your" refers to you, the person
+              log on this website and compliant to the Company’s terms and
+              conditions. "The Company", "Ourselves", "We", "Our" and "Us",
+              refers to our Company. "Party", "Parties", or "Us", refers to both
+              the Client and ourselves. All terms refer to the offer, acceptance
+              and consideration of payment necessary to undertake the process of
+              our assistance to the Client in the most appropriate manner for
+              the express purpose of meeting the Client’s needs in respect of
+              provision of the Company’s stated services, in accordance with and
+              subject to, prevailing law of Netherlands. Any use of the above
+              terminology or other words in the singular, plural, capitalization
+              and/or he/she or they, are taken as interchangeable and therefore
+              as referring to same., key: 7d486652
+            label: Text
+            name: 7d486652
+            widget: text
+          - hint: 'Original text: Cookies, key: -64062591'
+            label: Text
+            name: '-64062591'
+            widget: string
+          - hint: >-
+              Original text: We employ the use of cookies. By accessing Steady
+              Drummer, you agreed to use cookies in agreement with the
+              Incrementic Ltd.'s Privacy Policy., key: -2370f562
+            label: Text
+            name: '-2370f562'
+            widget: text
+          - hint: >-
+              Original text: Most interactive websites use cookies to let us
+              retrieve the user’s details for each visit. Cookies are used by
+              our website to enable the functionality of certain areas to make
+              it easier for people visiting our website. Some of our
+              affiliate/advertising partners may also use cookies., key:
+              -6c1dab9e
+            label: Text
+            name: '-6c1dab9e'
+            widget: text
+          - hint: 'Original text: License, key: 6d291c21'
+            label: Text
+            name: 6d291c21
+            widget: string
+          - hint: >-
+              Original text: Unless otherwise stated, Incrementic Ltd. and/or
+              its licensors own the intellectual property rights for all
+              material on Steady Drummer. All intellectual property rights are
+              reserved. You may access this from Steady Drummer for your own
+              personal use subjected to restrictions set in these terms and
+              conditions., key: 467fe067
+            label: Text
+            name: 467fe067
+            widget: text
+          - hint: 'Original text: You must not:, key: -2560763'
+            label: Text
+            name: '-2560763'
+            widget: string
+          - hint: >-
+              Original text: Republish material from Steady Drummer, key:
+              -14a7d099
+            label: Text
+            name: '-14a7d099'
+            widget: string
+          - hint: >-
+              Original text: Sell, rent or sub-license material from Steady
+              Drummer, key: 7ed5dbab
+            label: Text
+            name: 7ed5dbab
+            widget: string
+          - hint: >-
+              Original text: Reproduce, duplicate or copy material from Steady
+              Drummer, key: -4263cb79
+            label: Text
+            name: '-4263cb79'
+            widget: string
+          - hint: >-
+              Original text: Redistribute content from Steady Drummer, key:
+              -26c08237
+            label: Text
+            name: '-26c08237'
+            widget: string
+          - hint: >-
+              Original text: This Agreement shall begin on the date hereof. Our
+              Terms and Conditions were created with the help of the , key:
+              72e4ccdf
+            label: Text
+            name: 72e4ccdf
+            widget: text
+          - hint: 'Original text: Free Terms and Conditions Generator, key: -558a253f'
+            label: Text
+            name: '-558a253f'
+            widget: string
+          - hint: 'Original text: ., key: 2e'
+            label: Text
+            name: 2e
+            widget: string
+          - hint: >-
+              Original text: Parts of this website offer an opportunity for
+              users to post and exchange opinions and information in certain
+              areas of the website. Incrementic Ltd. does not filter, edit,
+              publish or review Comments prior to their presence on the website.
+              Comments do not reflect the views and opinions of Incrementic
+              Ltd.,its agents and/or affiliates. Comments reflect the views and
+              opinions of the person who post their views and opinions. To the
+              extent permitted by applicable laws, Incrementic Ltd. shall not be
+              liable for the Comments or for any liability, damages or expenses
+              caused and/or suffered as a result of any use of and/or posting of
+              and/or appearance of the Comments on this website., key: -6675e484
+            label: Text
+            name: '-6675e484'
+            widget: text
+          - hint: >-
+              Original text: Incrementic Ltd. reserves the right to monitor all
+              Comments and to remove any Comments which can be considered
+              inappropriate, offensive or causes breach of these Terms and
+              Conditions., key: 27ecd1b8
+            label: Text
+            name: 27ecd1b8
+            widget: text
+          - hint: 'Original text: You warrant and represent that:, key: 5f6aa20e'
+            label: Text
+            name: 5f6aa20e
+            widget: string
+          - hint: >-
+              Original text: You are entitled to post the Comments on our
+              website and have all necessary licenses and consents to do so;,
+              key: -bd5fb4a
+            label: Text
+            name: '-bd5fb4a'
+            widget: text
+          - hint: >-
+              Original text: The Comments do not invade any intellectual
+              property right, including without limitation copyright, patent or
+              trademark of any third party;, key: -563eef38
+            label: Text
+            name: '-563eef38'
+            widget: text
+          - hint: >-
+              Original text: The Comments do not contain any defamatory,
+              libelous, offensive, indecent or otherwise unlawful material which
+              is an invasion of privacy, key: -31509d7b
+            label: Text
+            name: '-31509d7b'
+            widget: text
+          - hint: >-
+              Original text: The Comments will not be used to solicit or promote
+              business or custom or present commercial activities or unlawful
+              activity., key: 2681e3f2
+            label: Text
+            name: 2681e3f2
+            widget: text
+          - hint: >-
+              Original text: You hereby grant Incrementic Ltd. a non-exclusive
+              license to use, reproduce, edit and authorize others to use,
+              reproduce and edit any of your Comments in any and all forms,
+              formats or media., key: -3275c3b0
+            label: Text
+            name: '-3275c3b0'
+            widget: text
+          - hint: 'Original text: Hyperlinking to our Content, key: -79ffb7dc'
+            label: Text
+            name: '-79ffb7dc'
+            widget: string
+          - hint: >-
+              Original text: The following organizations may link to our Website
+              without prior written approval:, key: 4584dbcf
+            label: Text
+            name: 4584dbcf
+            widget: string
+          - hint: 'Original text: Government agencies;, key: 163ca5e9'
+            label: Text
+            name: 163ca5e9
+            widget: string
+          - hint: 'Original text: Search engines;, key: -2d4370be'
+            label: Text
+            name: '-2d4370be'
+            widget: string
+          - hint: 'Original text: News organizations;, key: f209f68'
+            label: Text
+            name: f209f68
+            widget: string
+          - hint: >-
+              Original text: Online directory distributors may link to our
+              Website in the same manner as they hyperlink to the Websites of
+              other listed businesses; and, key: -23f5eac6
+            label: Text
+            name: '-23f5eac6'
+            widget: text
+          - hint: >-
+              Original text: System wide Accredited Businesses except soliciting
+              non-profit organizations, charity shopping malls, and charity
+              fundraising groups which may not hyperlink to our Web site., key:
+              -e8cb609
+            label: Text
+            name: '-e8cb609'
+            widget: text
+          - hint: >-
+              Original text: These organizations may link to our home page, to
+              publications or to other Website information so long as the link:
+              (a) is not in any way deceptive; (b) does not falsely imply
+              sponsorship, endorsement or approval of the linking party and its
+              products and/or services; and (c) fits within the context of the
+              linking party’s site., key: -519b30c
+            label: Text
+            name: '-519b30c'
+            widget: text
+          - hint: >-
+              Original text: We may consider and approve other link requests
+              from the following types of organizations:, key: -fe5fc9c
+            label: Text
+            name: '-fe5fc9c'
+            widget: string
+          - hint: >-
+              Original text: commonly-known consumer and/or business information
+              sources;, key: -bacc4b6
+            label: Text
+            name: '-bacc4b6'
+            widget: string
+          - hint: 'Original text: dot.com community sites;, key: -593257f6'
+            label: Text
+            name: '-593257f6'
+            widget: string
+          - hint: >-
+              Original text: associations or other groups representing
+              charities;, key: 1184adbe
+            label: Text
+            name: 1184adbe
+            widget: string
+          - hint: 'Original text: online directory distributors;, key: 12c0e10f'
+            label: Text
+            name: 12c0e10f
+            widget: string
+          - hint: 'Original text: internet portals;, key: 7e73dd93'
+            label: Text
+            name: 7e73dd93
+            widget: string
+          - hint: >-
+              Original text: accounting, law and consulting firms; and, key:
+              a4448d7
+            label: Text
+            name: a4448d7
+            widget: string
+          - hint: >-
+              Original text: educational institutions and trade associations.,
+              key: 6c65d39f
+            label: Text
+            name: 6c65d39f
+            widget: string
+          - hint: >-
+              Original text: We will approve link requests from these
+              organizations if we decide that: (a) the link would not make us
+              look unfavorably to ourselves or to our accredited businesses; (b)
+              the organization does not have any negative records with us; (c)
+              the benefit to us from the visibility of the hyperlink compensates
+              the absence of Incrementic Ltd.; and (d) the link is in the
+              context of general resource information., key: d8b3fd0
+            label: Text
+            name: d8b3fd0
+            widget: text
+          - hint: >-
+              Original text: These organizations may link to our home page so
+              long as the link: (a) is not in any way deceptive; (b) does not
+              falsely imply sponsorship, endorsement or approval of the linking
+              party and its products or services; and (c) fits within the
+              context of the linking party’s site., key: 44b8432f
+            label: Text
+            name: 44b8432f
+            widget: text
+          - hint: >-
+              Original text: If you are one of the organizations listed in
+              paragraph 2 above and are interested in linking to our website,
+              you must inform us by sending an e-mail to Incrementic Ltd..
+              Please include your name, your organization name, contact
+              information as well as the URL of your site, a list of any URLs
+              from which you intend to link to our Website, and a list of the
+              URLs on our site to which you would like to link. Wait 2-3 weeks
+              for a response., key: -5e105094
+            label: Text
+            name: '-5e105094'
+            widget: text
+          - hint: >-
+              Original text: Approved organizations may hyperlink to our Website
+              as follows:, key: -3cb2501a
+            label: Text
+            name: '-3cb2501a'
+            widget: string
+          - hint: 'Original text: By use of our corporate name; or, key: -73b55b37'
+            label: Text
+            name: '-73b55b37'
+            widget: string
+          - hint: >-
+              Original text: By use of the uniform resource locator being linked
+              to; or, key: -37dcbfd1
+            label: Text
+            name: '-37dcbfd1'
+            widget: string
+          - hint: >-
+              Original text: By use of any other description of our Website
+              being linked to that makes sense within the context and format of
+              content on the linking party’s site., key: 3ebfda50
+            label: Text
+            name: 3ebfda50
+            widget: text
+          - hint: >-
+              Original text: No use of Incrementic Ltd.'s logo or other artwork
+              will be allowed for linking absent a trademark license agreement.,
+              key: 4972c984
+            label: Text
+            name: 4972c984
+            widget: text
+          - hint: 'Original text: iFrames, key: 3055be6f'
+            label: Text
+            name: 3055be6f
+            widget: string
+          - hint: >-
+              Original text: Without prior approval and written permission, you
+              may not create frames around our Webpages that alter in any way
+              the visual presentation or appearance of our Website., key:
+              -18094b4d
+            label: Text
+            name: '-18094b4d'
+            widget: text
+          - hint: 'Original text: Content Liability, key: -5f90da1a'
+            label: Text
+            name: '-5f90da1a'
+            widget: string
+          - hint: >-
+              Original text: We shall not be hold responsible for any content
+              that appears on your Website. You agree to protect and defend us
+              against all claims that is rising on your Website. No link(s)
+              should appear on any Website that may be interpreted as libelous,
+              obscene or criminal, or which infringes, otherwise violates, or
+              advocates the infringement or other violation of, any third party
+              rights., key: -1d314987
+            label: Text
+            name: '-1d314987'
+            widget: text
+          - hint: 'Original text: Your Privacy, key: 3495789b'
+            label: Text
+            name: 3495789b
+            widget: string
+          - hint: 'Original text: Please read Privacy Policy, key: 8ce4bbe'
+            label: Text
+            name: 8ce4bbe
+            widget: string
+          - hint: 'Original text: Reservation of Rights, key: 2fbc40ec'
+            label: Text
+            name: 2fbc40ec
+            widget: string
+          - hint: >-
+              Original text: We reserve the right to request that you remove all
+              links or any particular link to our Website. You approve to
+              immediately remove all links to our Website upon request. We also
+              reserve the right to amen these terms and conditions and it’s
+              linking policy at any time. By continuously linking to our
+              Website, you agree to be bound to and follow these linking terms
+              and conditions., key: 1e407210
+            label: Text
+            name: '1e407210'
+            widget: text
+          - hint: 'Original text: Removal of links from our website, key: -6dbc6d13'
+            label: Text
+            name: '-6dbc6d13'
+            widget: string
+          - hint: >-
+              Original text: If you find any link on our Website that is
+              offensive for any reason, you are free to contact and inform us
+              any moment. We will consider requests to remove links but we are
+              not obligated to or so or to respond to you directly., key:
+              73ecab03
+            label: Text
+            name: 73ecab03
+            widget: text
+          - hint: >-
+              Original text: We do not ensure that the information on this
+              website is correct, we do not warrant its completeness or
+              accuracy; nor do we promise to ensure that the website remains
+              available or that the material on the website is kept up to date.,
+              key: -27651a54
+            label: Text
+            name: '-27651a54'
+            widget: text
+          - hint: 'Original text: Disclaimer, key: -6f68ae45'
+            label: Text
+            name: '-6f68ae45'
+            widget: string
+          - hint: >-
+              Original text: To the maximum extent permitted by applicable law,
+              we exclude all representations, warranties and conditions relating
+              to our website and the use of this website. Nothing in this
+              disclaimer will:, key: -459a13c4
+            label: Text
+            name: '-459a13c4'
+            widget: text
+          - hint: >-
+              Original text: limit or exclude our or your liability for death or
+              personal injury;, key: -73305957
+            label: Text
+            name: '-73305957'
+            widget: string
+          - hint: >-
+              Original text: limit or exclude our or your liability for fraud or
+              fraudulent misrepresentation;, key: -2f54adce
+            label: Text
+            name: '-2f54adce'
+            widget: string
+          - hint: >-
+              Original text: limit any of our or your liabilities in any way
+              that is not permitted under applicable law; or, key: 137efffa
+            label: Text
+            name: 137efffa
+            widget: text
+          - hint: >-
+              Original text: exclude any of our or your liabilities that may not
+              be excluded under applicable law., key: 7e578233
+            label: Text
+            name: '7e578233'
+            widget: string
+          - hint: >-
+              Original text: The limitations and prohibitions of liability set
+              in this Section and elsewhere in this disclaimer: (a) are subject
+              to the preceding paragraph; and (b) govern all liabilities arising
+              under the disclaimer, including liabilities arising in contract,
+              in tort and for breach of statutory duty., key: -2b8fba13
+            label: Text
+            name: '-2b8fba13'
+            widget: text
+          - hint: >-
+              Original text: As long as the website and the information and
+              services on the website are provided free of charge, we will not
+              be liable for any loss or damage of any nature., key: -66fcebf
+            label: Text
+            name: '-66fcebf'
+            widget: text
+          - hint: 'Original text: Privacy Policy for Incrementic Ltd., key: -37bf232a'
+            label: Text
+            name: '-37bf232a'
+            widget: string
+          - hint: >-
+              Original text: At Steady Drummer, accessible from
+              www.steadydrummer.com, one of our main priorities is the privacy
+              of our visitors. This Privacy Policy document contains types of
+              information that is collected and recorded by Steady Drummer and
+              how we use it., key: 41e1f721
+            label: Text
+            name: 41e1f721
+            widget: text
+          - hint: >-
+              Original text: If you have additional questions or require more
+              information about our Privacy Policy, do not hesitate to contact
+              us., key: -117ca984
+            label: Text
+            name: '-117ca984'
+            widget: text
+          - hint: >-
+              Original text: This Privacy Policy applies only to our online
+              activities and is valid for visitors to our website with regards
+              to the information that they shared and/or collect in Steady
+              Drummer. This policy is not applicable to any information
+              collected offline or via channels other than this website. Our
+              Privacy Policy was created with the help of the , key: 256208ed
+            label: Text
+            name: 256208ed
+            widget: text
+          - hint: 'Original text: Free Privacy Policy Generator, key: 74917e31'
+            label: Text
+            name: '74917e31'
+            widget: string
+          - hint: 'Original text: Consent, key: -6410a806'
+            label: Text
+            name: '-6410a806'
+            widget: string
+          - hint: >-
+              Original text: By using our website, you hereby consent to our
+              Privacy Policy and agree to its terms., key: -60d800fe
+            label: Text
+            name: '-60d800fe'
+            widget: string
+          - hint: 'Original text: Information we collect, key: -7639c694'
+            label: Text
+            name: '-7639c694'
+            widget: string
+          - hint: >-
+              Original text: The personal information that you are asked to
+              provide, and the reasons why you are asked to provide it, will be
+              made clear to you at the point we ask you to provide your personal
+              information., key: -66c49400
+            label: Text
+            name: '-66c49400'
+            widget: text
+          - hint: >-
+              Original text: If you contact us directly, we may receive
+              additional information about you such as your name, email address,
+              phone number, the contents of the message and/or attachments you
+              may send us, and any other information you may choose to provide.,
+              key: -38fb2d0c
+            label: Text
+            name: '-38fb2d0c'
+            widget: text
+          - hint: >-
+              Original text: When you register for an Account, we may ask for
+              your contact information, including items such as name, company
+              name, address, email address, and telephone number., key: 429990f0
+            label: Text
+            name: 429990f0
+            widget: text
+          - hint: 'Original text: How we use your information, key: 553dec5a'
+            label: Text
+            name: 553dec5a
+            widget: string
+          - hint: >-
+              Original text: We use the information we collect in various ways,
+              including to:, key: -7b658d4a
+            label: Text
+            name: '-7b658d4a'
+            widget: string
+          - hint: >-
+              Original text: Provide, operate, and maintain our website, key:
+              3b502c3e
+            label: Text
+            name: 3b502c3e
+            widget: string
+          - hint: >-
+              Original text: Improve, personalize, and expand our website, key:
+              33bb7366
+            label: Text
+            name: 33bb7366
+            widget: string
+          - hint: >-
+              Original text: Understand and analyze how you use our website,
+              key: 1e2ab0be
+            label: Text
+            name: 1e2ab0be
+            widget: string
+          - hint: >-
+              Original text: Develop new products, services, features, and
+              functionality, key: 78c369a4
+            label: Text
+            name: 78c369a4
+            widget: string
+          - hint: >-
+              Original text: Communicate with you, either directly or through
+              one of our partners, including for customer service, to provide
+              you with updates and other information relating to the website,
+              and for marketing and promotional purposes, key: -5bdaf3c1
+            label: Text
+            name: '-5bdaf3c1'
+            widget: text
+          - hint: 'Original text: Send you emails, key: -1d799910'
+            label: Text
+            name: '-1d799910'
+            widget: string
+          - hint: 'Original text: Find and prevent fraud, key: -54dfbaf4'
+            label: Text
+            name: '-54dfbaf4'
+            widget: string
+          - hint: 'Original text: Log Files, key: -6dc3e1a5'
+            label: Text
+            name: '-6dc3e1a5'
+            widget: string
+          - hint: >-
+              Original text: Steady Drummer follows a standard procedure of
+              using log files. These files log visitors when they visit
+              websites. All hosting companies do this and a part of hosting
+              services' analytics. The information collected by log files
+              include internet protocol (IP) addresses, browser type, Internet
+              Service Provider (ISP), date and time stamp, referring/exit pages,
+              and possibly the number of clicks. These are not linked to any
+              information that is personally identifiable. The purpose of the
+              information is for analyzing trends, administering the site,
+              tracking users' movement on the website, and gathering demographic
+              information., key: 50d7f374
+            label: Text
+            name: 50d7f374
+            widget: text
+          - hint: >-
+              Original text: Advertising Partners Privacy Policies, key:
+              -7533dc3f
+            label: Text
+            name: '-7533dc3f'
+            widget: string
+          - hint: >-
+              Original text: You may consult this list to find the Privacy
+              Policy for each of the advertising partners of Steady Drummer.,
+              key: -464f800d
+            label: Text
+            name: '-464f800d'
+            widget: text
+          - hint: >-
+              Original text: Third-party ad servers or ad networks uses
+              technologies like cookies, JavaScript, or Web Beacons that are
+              used in their respective advertisements and links that appear on
+              Steady Drummer, which are sent directly to users' browser. They
+              automatically receive your IP address when this occurs. These
+              technologies are used to measure the effectiveness of their
+              advertising campaigns and/or to personalize the advertising
+              content that you see on websites that you visit., key: c1a1a0e
+            label: Text
+            name: c1a1a0e
+            widget: text
+          - hint: >-
+              Original text: Note that Steady Drummer has no access to or
+              control over these cookies that are used by third-party
+              advertisers., key: 414be7a4
+            label: Text
+            name: 414be7a4
+            widget: text
+          - hint: 'Original text: Third Party Privacy Policies, key: -7eb1e3c5'
+            label: Text
+            name: '-7eb1e3c5'
+            widget: string
+          - hint: >-
+              Original text: Steady Drummer's Privacy Policy does not apply to
+              other advertisers or websites. Thus, we are advising you to
+              consult the respective Privacy Policies of these third-party ad
+              servers for more detailed information. It may include their
+              practices and instructions about how to opt-out of certain
+              options., key: 31ab622a
+            label: Text
+            name: 31ab622a
+            widget: text
+          - hint: >-
+              Original text: You can choose to disable cookies through your
+              individual browser options. To know more detailed information
+              about cookie management with specific web browsers, it can be
+              found at the browsers' respective websites., key: 47f79609
+            label: Text
+            name: 47f79609
+            widget: text
+          - hint: >-
+              Original text: CCPA Privacy Rights (Do Not Sell My Personal
+              Information), key: -4d162e05
+            label: Text
+            name: '-4d162e05'
+            widget: string
+          - hint: >-
+              Original text: Under the CCPA, among other rights, California
+              consumers have the right to:, key: -40e7a3dc
+            label: Text
+            name: '-40e7a3dc'
+            widget: string
+          - hint: >-
+              Original text: Request that a business that collects a consumer's
+              personal data disclose the categories and specific pieces of
+              personal data that a business has collected about consumers., key:
+              -563a134b
+            label: Text
+            name: '-563a134b'
+            widget: text
+          - hint: >-
+              Original text: Request that a business delete any personal data
+              about the consumer that a business has collected., key: 7690b9d5
+            label: Text
+            name: 7690b9d5
+            widget: text
+          - hint: >-
+              Original text: Request that a business that sells a consumer's
+              personal data, not sell the consumer's personal data., key:
+              2a029550
+            label: Text
+            name: 2a029550
+            widget: text
+          - hint: >-
+              Original text: If you make a request, we have one month to respond
+              to you. If you would like to exercise any of these rights, please
+              contact us., key: -35f2f74c
+            label: Text
+            name: '-35f2f74c'
+            widget: text
+          - hint: 'Original text: GDPR Data Protection Rights, key: 768783c9'
+            label: Text
+            name: 768783c9
+            widget: string
+          - hint: >-
+              Original text: We would like to make sure you are fully aware of
+              all of your data protection rights. Every user is entitled to the
+              following:, key: -2858e7d9
+            label: Text
+            name: '-2858e7d9'
+            widget: text
+          - hint: >-
+              Original text: The right to access – You have the right to request
+              copies of your personal data. We may charge you a small fee for
+              this service., key: -1af41bc
+            label: Text
+            name: '-1af41bc'
+            widget: text
+          - hint: >-
+              Original text: The right to rectification – You have the right to
+              request that we correct any information you believe is inaccurate.
+              You also have the right to request that we complete the
+              information you believe is incomplete., key: -3460a3f
+            label: Text
+            name: '-3460a3f'
+            widget: text
+          - hint: >-
+              Original text: The right to erasure – You have the right to
+              request that we erase your personal data, under certain
+              conditions., key: b835d4a
+            label: Text
+            name: b835d4a
+            widget: text
+          - hint: >-
+              Original text: The right to restrict processing – You have the
+              right to request that we restrict the processing of your personal
+              data, under certain conditions., key: -6c0e6423
+            label: Text
+            name: '-6c0e6423'
+            widget: text
+          - hint: >-
+              Original text: The right to object to processing – You have the
+              right to object to our processing of your personal data, under
+              certain conditions., key: -43def154
+            label: Text
+            name: '-43def154'
+            widget: text
+          - hint: >-
+              Original text: The right to data portability – You have the right
+              to request that we transfer the data that we have collected to
+              another organization, or directly to you, under certain
+              conditions., key: 137acb63
+            label: Text
+            name: 137acb63
+            widget: text
+          - hint: 'Original text: Children''s Information, key: -3b8a7409'
+            label: Text
+            name: '-3b8a7409'
+            widget: string
+          - hint: >-
+              Original text: Another part of our priority is adding protection
+              for children while using the internet. We encourage parents and
+              guardians to observe, participate in, and/or monitor and guide
+              their online activity., key: 503b928f
+            label: Text
+            name: 503b928f
+            widget: text
+          - hint: >-
+              Original text: Steady Drummer does not knowingly collect any
+              Personal Identifiable Information from children under the age of
+              13. If you think that your child provided this kind of information
+              on our website, we strongly encourage you to contact us
+              immediately and we will do our best efforts to promptly remove
+              such information from our records., key: -237a37d1
+            label: Text
+            name: '-237a37d1'
+            widget: text
+          - hint: 'Original text: Recent Work, key: -18abb24a'
+            label: Text
+            name: '-18abb24a'
+            widget: string
+          - hint: 'Original text: Project STAR, key: 3e44ff19'
+            label: Text
+            name: 3e44ff19
+            widget: string
+          - hint: 'Original text: Project STAR , key: -75a51bd9'
+            label: Text
+            name: '-75a51bd9'
+            widget: string
+          - hint: >-
+              Original text:  is a social and economic development initiative.
+              Project STAR consults with Jamaican community stakeholders to
+              identify needs, then works with partners to connect communities
+              with resources and services., key: -4bd6803
+            label: Text
+            name: '-4bd6803'
+            widget: text
+          - hint: "Original text: Desired Outcome:\_, key: 41c0ac32"
+            label: Text
+            name: 41c0ac32
+            widget: string
+          - hint: >-
+              Original text: A platform to share the work of the project and
+              engage with the public, while also encouraging participation and
+              corporate support., key: -152c3985
+            label: Text
+            name: '-152c3985'
+            widget: text
+          - hint: 'Original text: Visit Their Site, key: -23ee6b5e'
+            label: Text
+            name: '-23ee6b5e'
+            widget: string
+          - hint: 'Original text: Dawkins Engineering, key: -500b2690'
+            label: Text
+            name: '-500b2690'
+            widget: string
+          - hint: >-
+              Original text: L & N Dawkins Engineering Works Limited, key:
+              52e058ec
+            label: Text
+            name: 52e058ec
+            widget: string
+          - hint: 'Original text:  (aka , key: 38fc7591'
+            label: Text
+            name: 38fc7591
+            widget: string
+          - hint: >-
+              Original text: ) provides machining and industrial equipment
+              repair services. They service the bauxite, construction and
+              automotive industries among others. Over the years, they have
+              distinguished themselves through precision and quality., key:
+              495dd39a
+            label: Text
+            name: 495dd39a
+            widget: text
+          - hint: 'Original text: Desired Outcome: , key: 41c0abb2'
+            label: Text
+            name: 41c0abb2
+            widget: string
+          - hint: >-
+              Original text: Showcase their capabilities and raise awareness
+              about their expertise., key: -3779ed51
+            label: Text
+            name: '-3779ed51'
+            widget: string
+          - hint: 'Original text: Golden Glory Honey, key: 72515195'
+            label: Text
+            name: '72515195'
+            widget: string
+          - hint: 'Original text: Golden Glory Apiaries , key: -560d4832'
+            label: Text
+            name: '-560d4832'
+            widget: string
+          - hint: >-
+              Original text: specialises in unpasteurised (raw) honey, free of
+              additives and with all the nutrients intact., key: -6d061f2e
+            label: Text
+            name: '-6d061f2e'
+            widget: text
+          - hint: >-
+              Original text: The business caters to people place priority on
+              healthy and natural nutrition., key: 1ab76842
+            label: Text
+            name: 1ab76842
+            widget: string
+          - hint: >-
+              Original text: A website to highlight the product, provide contact
+              information and a way to place orders for the honey., key:
+              -6cc43397
+            label: Text
+            name: '-6cc43397'
+            widget: text
+          - hint: 'Original text: PleadingPower, key: b5529ef'
+            label: Text
+            name: b5529ef
+            widget: string
+          - hint: 'Original text: Pleading, key: 795e70b6'
+            label: Text
+            name: 795e70b6
+            widget: string
+          - hint: 'Original text: Power, key: 49b98e5'
+            label: Text
+            name: 49b98e5
+            widget: string
+          - hint: >-
+              Original text:  is a service that provides court-ready documents
+              through document automation. They have a growing library of
+              templates for Florida-based attorneys. , key: -797fdf51
+            label: Text
+            name: '-797fdf51'
+            widget: text
+          - hint: >-
+              Original text: Develop a compelling landing page to support their
+              minimum viable product (MVP), key: -599ae1a2
+            label: Text
+            name: '-599ae1a2'
+            widget: string
+          - hint: >-
+              Original text: *this is a link to the landing page version of the
+              site. The current version of the site is available at
+              https://pleadingpower.com and is not maintained by us., key:
+              63c8f13b
+            label: Text
+            name: 63c8f13b
+            widget: text
+          - hint: 'Original text: Kayani Construction Limited, key: -1fba8e2e'
+            label: Text
+            name: '-1fba8e2e'
+            widget: string
+          - hint: >-
+              Original text: They focus on people who want to build in Jamaica
+              from overseas. The service offers construction services with less
+              hassle and risk than the competing options. , key: 40c8d875
+            label: Text
+            name: 40c8d875
+            widget: text
+          - hint: >-
+              Original text: An interactive and user-friendly website that can
+              keep up with their needs as their offerings and business
+              develops., key: -779d587a
+            label: Text
+            name: '-779d587a'
+            widget: text
+          - hint: >-
+              Original text: Need help with your next Webflow project?, key:
+              38038189
+            label: Text
+            name: '38038189'
+            widget: string
+          - hint: >-
+              Original text: As we work on projects and interact with others in
+              the industry, we learn lots of interesting things . Our resources
+              section is where we share our knowledge with you., key: -6fc3922f
+            label: Text
+            name: '-6fc3922f'
+            widget: text
+          - hint: 'Original text: Read more, key: 31997f7f'
+            label: Text
+            name: 31997f7f
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: >-
+              Original text: Steady Drummer Provides On-Demand Webflow
+              Development. Flat rate. No Surprises., key: -4bfdcf82
+            label: Text
+            name: '-4bfdcf82'
+            widget: string
+          - hint: 'Original text: Heading, key: -6d5fea1e'
+            label: Text
+            name: '-6d5fea1e'
+            widget: string
+          - hint: 'Original text: ..., key: b26e'
+            label: Text
+            name: b26e
+            widget: string
+          - hint: 'Original text:  plan. , key: 6205d2bb'
+            label: Text
+            name: 6205d2bb
+            widget: string
+          - hint: 'Original text: Superb, key: -6bb89399'
+            label: Text
+            name: '-6bb89399'
+            widget: string
+          - hint: 'Original text: !, key: 21'
+            label: Text
+            name: '21'
+            widget: string
+          - hint: 'Original text: So what next?, key: -5d79688c'
+            label: Text
+            name: '-5d79688c'
+            widget: string
+          - hint: >-
+              Original text: We will now ask a few questions. We want to make
+              sure we're the right fit for your project., key: 58af8260
+            label: Text
+            name: 58af8260
+            widget: text
+          - hint: 'Original text: Let''s do this, key: -78fccda6'
+            label: Text
+            name: '-78fccda6'
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: /#benefits, key: -7cac2f70'
+            label: Link
+            name: '-7cac2f70'
+            widget: string
+          - hint: 'Original link: /#services, key: 710c0232'
+            label: Link
+            name: 710c0232
+            widget: string
+          - hint: 'Original link: /work, key: 2ce17c0'
+            label: Link
+            name: 2ce17c0
+            widget: string
+          - hint: 'Original link: /resources, key: 634882d6'
+            label: Link
+            name: 634882d6
+            widget: string
+          - hint: 'Original link: /contact, key: 4b0e6111'
+            label: Link
+            name: 4b0e6111
+            widget: string
+          - hint: 'Original link: #benefits, key: -5627f421'
+            label: Link
+            name: '-5627f421'
+            widget: string
+          - hint: 'Original link: #pricing, key: 2101c243'
+            label: Link
+            name: 2101c243
+            widget: string
+          - hint: 'Original link: #one-off-projects, key: 4e328142'
+            label: Link
+            name: '4e328142'
+            widget: string
+          - hint: 'Original link: #top, key: 11aa52'
+            label: Link
+            name: 11aa52
+            widget: string
+          - hint: 'Original link: /privacy-policy-steady-drummer, key: 337df160'
+            label: Link
+            name: 337df160
+            widget: string
+          - hint: 'Original link: /terms-and-conditions-steady-drummer, key: -a7dab5d'
+            label: Link
+            name: '-a7dab5d'
+            widget: string
+          - hint: 'Original link: https://client-first.webflow.io/, key: -740f2794'
+            label: Link
+            name: '-740f2794'
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: http://youtube.com, key: 499802e4'
+            label: Link
+            name: '499802e4'
+            widget: string
+          - hint: 'Original link: https://www.incrementic.com/calendar, key: 71331bd7'
+            label: Link
+            name: 71331bd7
+            widget: string
+          - hint: >-
+              Original link: https://www.termsandconditionsgenerator.com/, key:
+              58494577
+            label: Link
+            name: '58494577'
+            widget: string
+          - hint: >-
+              Original link: https://www.privacypolicygenerator.info/, key:
+              5844c32
+            label: Link
+            name: 5844c32
+            widget: string
+          - hint: 'Original link: https://projectstarja.com, key: -50d40dfa'
+            label: Link
+            name: '-50d40dfa'
+            widget: string
+          - hint: 'Original link: https://lndawkins.com, key: 51cd11f'
+            label: Link
+            name: 51cd11f
+            widget: string
+          - hint: 'Original link: https://goldengloryhoney.com, key: 3819c215'
+            label: Link
+            name: 3819c215
+            widget: string
+          - hint: >-
+              Original link: https://pleadingpower-site.webflow.io/, key:
+              21b34ca3
+            label: Link
+            name: 21b34ca3
+            widget: string
+          - hint: 'Original link: https://kayanigroup.com, key: -17aaba16'
+            label: Link
+            name: '-17aaba16'
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: 3bcaec6
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4745567a'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1c30d98
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7a700be7'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6087357f'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2d7f87f1'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3cbca8bd'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3bf52e8'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1019fe14'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-29110a36'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3bd94e16'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4da3c196'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7fd45435'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7dd4f3c3
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5d276c8a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-404c8d57'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-90f84e9'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
