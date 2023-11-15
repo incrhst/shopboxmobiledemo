@@ -25,7 +25,7 @@ functions = "functions"
 
 [[redirects]]
   from = "/new" # not using this at the moment, just a default reference
-  to = "/public/newsite/index.html"
+  to = "/public/new-site/index.html"
   status = 200
   force = true
 
