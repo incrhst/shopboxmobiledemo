@@ -24,6 +24,12 @@ functions = "functions"
   force = true
 
 [[redirects]]
+  from = "/new" # not using this at the moment, just a default reference
+  to = "/public/newsite/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/robots.txt"
   to = "/robots.txt"
   status = 200
