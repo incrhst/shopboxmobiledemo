@@ -49,8 +49,14 @@ functions = "functions"
   force = true
 
 [[redirects]]
-  from = "/new" # not using this at the moment, just a default reference
-  to = "/new-site/:splat"
+  from = "/site.webmanifest" # not using this at the moment, just a default reference
+  to = "/new-site/site.webmanifest"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/favicon.ico" # not using this at the moment, just a default reference
+  to = "/new-site/favicon.ico"
   status = 200
   force = true
 
