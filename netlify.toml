@@ -24,8 +24,8 @@ functions = "functions"
   force = true
 
 [[redirects]]
-  from = "/new" # not using this at the moment, just a default reference
-  to = "/new-site/index.html"
+  from = "/new/*" # not using this at the moment, just a default reference
+  to = "/new-site/:splat"
   status = 200
   force = true
 
