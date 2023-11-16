@@ -24,8 +24,29 @@ functions = "functions"
   force = true
 
 [[redirects]]
-  from = "/new/*" # not using this at the moment, just a default reference
-  to = "/new-site/:splat"
+<<<<<<< HEAD
+  from = "/css/*" # not using this at the moment, just a default reference
+  to = "/new-site/css/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/img/*" # not using this at the moment, just a default reference
+  to = "/new-site/img/:splat"
+  status = 200
+  force = true
+
+
+[[redirects]]
+  from = "/js/*" # not using this at the moment, just a default reference
+  to = "/new-site/js/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/new" # not using this at the moment, just a default reference
+  to = "/new-site/index.html"
+
   status = 200
   force = true
 
