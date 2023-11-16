@@ -11,6 +11,9 @@
   <meta property="og:type" content="">
   <meta property="og:url" content="">
   <meta property="og:image" content="">
+  <script src="https://unpkg.com/htmx.org@1.9.8"></script>
+  <!-- have a button POST a click via AJAX -->
+  
 
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
@@ -29,6 +32,12 @@
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+
+
+  <button hx-get="/customer.login.aspx" hx-swap="outerHTML">
+    Click Me
+  </button>
+  
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
