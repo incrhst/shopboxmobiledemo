@@ -24,8 +24,8 @@ functions = "functions"
   force = true
 
 [[redirects]]
-  from = "/css/*" # not using this at the moment, just a default reference
-  to = "/new-site/css/:splat"
+  from = "/Stylesheets/*" # mapping all stylesheets to the pubic/Stylesheets folder 
+  to = "/Stylesheets/:splat"
   status = 200
   force = true
 
